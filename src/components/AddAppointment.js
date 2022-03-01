@@ -12,25 +12,27 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
   let [toggleForm, setToggleForm] = useState(false);
   let [formData, setFormData] = useState(clearData);
 
-  function formDataPublish(formData) {
-    const aptInfo = {
+  function formDataPublish() {
+    const appointmentInfo = {
       id: lastId + 1,
       ownerName: formData.ownerName,
       petName: formData.petName,
       aptDate: formData.aptDate + " " + formData.aptTime,
       aptNotes: formData.aptNotes,
     };
-    onSendAppointment(aptInfo);
+    onSendAppointment(appointmentInfo);
     setFormData(clearData);
     setToggleForm(!toggleForm);
   }
+
   return (
     <div>
       <button
-        onClick={() => setToggleForm(!toggleForm)}
-        className={`bg-blue-400 text-white px-2 py-3 w-full text-left ${
-          toggleForm ? "rounded-t-md" : "rounded-md"
-        }`}
+        onClick={() => {
+          setToggleForm(!toggleForm);
+        }}
+        className={`bg-blue-400 text-white px-2 py-3 w-full text-left rounded-t-md
+        ${toggleForm ? "rounded-t-md" : "rounded-md"}`}
       >
         <div>
           <BiCalendarPlus className="inline-block align-text-top" /> Add Appointment
@@ -48,12 +50,12 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
             <div className="mt-1 sm:mt-0 sm:col-span-2">
               <input
                 type="text"
-                onChange={(e) => {
-                  setFormData({ ...formData, ownerName: e.target.value });
-                }}
-                value={formData.ownerName}
                 name="ownerName"
                 id="ownerName"
+                onChange={(event) => {
+                  setFormData({ ...formData, ownerName: event.target.value });
+                }}
+                value={formData.ownerName}
                 className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -69,12 +71,12 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
             <div className="mt-1 sm:mt-0 sm:col-span-2">
               <input
                 type="text"
-                onChange={(e) => {
-                  setFormData({ ...formData, petName: e.target.value });
-                }}
-                value={formData.petName}
                 name="petName"
                 id="petName"
+                onChange={(event) => {
+                  setFormData({ ...formData, petName: event.target.value });
+                }}
+                value={formData.petName}
                 className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -90,12 +92,12 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
             <div className="mt-1 sm:mt-0 sm:col-span-2">
               <input
                 type="date"
-                onChange={(e) => {
-                  setFormData({ ...formData, aptDate: e.target.value });
-                }}
-                value={formData.aptDate}
                 name="aptDate"
                 id="aptDate"
+                onChange={(event) => {
+                  setFormData({ ...formData, aptDate: event.target.value });
+                }}
+                value={formData.aptDate}
                 className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -111,12 +113,12 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
             <div className="mt-1 sm:mt-0 sm:col-span-2">
               <input
                 type="time"
-                onChange={(e) => {
-                  setFormData({ ...formData, aptTime: e.target.value });
-                }}
-                value={formData.aptTime}
                 name="aptTime"
                 id="aptTime"
+                onChange={(event) => {
+                  setFormData({ ...formData, aptTime: event.target.value });
+                }}
+                value={formData.aptTime}
                 className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -133,11 +135,11 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
               <textarea
                 id="aptNotes"
                 name="aptNotes"
-                onChange={(e) => {
-                  setFormData({ ...formData, aptNotes: e.target.value });
+                rows="3"
+                onChange={(event) => {
+                  setFormData({ ...formData, aptNotes: event.target.value });
                 }}
                 value={formData.aptNotes}
-                rows="3"
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                 placeholder="Detailed comments about the condition"
               ></textarea>
@@ -148,7 +150,7 @@ const AddAppointment = ({ onSendAppointment, lastId }) => {
             <div className="flex justify-end">
               <button
                 type="submit"
-                onClick={formDataPublish(formData)}
+                onClick={formDataPublish}
                 className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
               >
                 Submit
